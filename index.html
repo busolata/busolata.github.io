@@ -95,6 +95,11 @@
     main{--cs:110px;--gap:16px}
     footer{bottom:calc(14px + env(safe-area-inset-bottom))}
   }
+  html.stg .stage{position:fixed;left:0;top:0;width:1440px;height:900px;transform-origin:0 0;pointer-events:none}
+  html.stg .stage .dial{width:1035px;height:1035px;top:50%}
+  html.stg .stage .glow{width:540px;height:540px;top:50%}
+  html.stg .stage main{--cs:184px;--gap:30px;top:50%}
+  html.stg .stage h1{font-size:70px}
   /* ===== tema deschisă ===== */
   .bg,.glow,h1,.slogan,.soon{transition:background .6s ease,color .6s ease,opacity .6s ease}
   html.light{background:#DDD2BB}
@@ -271,7 +276,7 @@
         ds[q].setAttribute('r', Math.max(big?3.8:2.4, (big?2.6:2.1)*u));
       }
     }
-    sizeDots(); window.addEventListener('resize',sizeDots);
+    sizeDots(); window.addEventListener('resize',sizeDots); window.sizeDots=sizeDots;
     function sizeLines(){
       var dials=document.querySelectorAll('.dial');
       for(var x=0;x<dials.length;x++){
@@ -300,7 +305,7 @@
       if(sw>0){ sl.style.fontSize=Math.min(cur*hw/sw, 80)+'px'; sl.style.whiteSpace='nowrap'; }
     }
     if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);} 
-    window.addEventListener('load',fit); window.addEventListener('resize',fit); fit();
+    window.addEventListener('load',fit); window.addEventListener('resize',fit); fit(); window.fitSlogan=fit;
   })();
 </script>
 <script>
@@ -314,6 +319,26 @@
     var t='dark';
     set(t);
     b.dark.onclick=function(){location.href='index.html'}; b.light.onclick=function(){location.href='alb.html'}; b.black.onclick=function(){location.href='negru.html'}; var tq=document.querySelector('.t-turcoaz'); if(tq) tq.onclick=function(){location.href='turcoaz.html'};
+  })();
+</script>
+<script>
+  (function(){
+    var PH=(Math.min(screen.width,screen.height)<600 && window.matchMedia && matchMedia('(pointer:coarse)').matches);
+    if(PH) return;
+    var H=document.documentElement, SG=document.createElement('div'); SG.className='stage';
+    var d0=document.querySelector('svg.dial'); d0.parentNode.insertBefore(SG,d0);
+    document.querySelectorAll('svg.dial').forEach(function(e){SG.appendChild(e);});
+    ['.glow','main'].forEach(function(q){var e=document.querySelector(q); if(e) SG.appendChild(e);});
+    H.classList.add('stg');
+    function stage(){
+      SG.style.transform='translate(0px,0px)';
+      if(window.fitSlogan) window.fitSlogan(); if(window.sizeLines) window.sizeLines(); if(window.sizeDots) window.sizeDots();
+      var sk=Math.min(window.innerWidth/1440, window.innerHeight/900);
+      SG.style.transform='translate('+((window.innerWidth-1440*sk)/2)+'px,'+((window.innerHeight-900*sk)/2)+'px) scale('+sk+')';
+    }
+    window.addEventListener('resize',stage); window.addEventListener('load',stage);
+    if(document.fonts&&document.fonts.ready) document.fonts.ready.then(stage);
+    stage();
   })();
 </script>
 </body>
