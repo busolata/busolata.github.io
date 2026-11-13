@@ -144,6 +144,7 @@
   html.light .l2{transform:translateY(var(--ty,2vh)) rotateZ(-24deg) rotateX(74.5deg) scale(1.077)}
   html.light .l3{transform:translateY(var(--ty,2vh)) rotateZ(24deg) rotateX(74.5deg) scale(1.4)}
   html.light .l4{transform:none}
+  html.light.ph .dial{width:var(--dph,71.875vw);height:var(--dph,71.875vw)}
   html.light.ph .pool{width:calc(var(--csz,138px)*1.7);height:calc(var(--csz,138px)*.38)}
   html.light .glow{opacity:0}
   html.light #ring4d{stroke:#6A4D1A;opacity:.9}
@@ -356,7 +357,7 @@
     var h=document.documentElement, b={dark:document.querySelector('.t-inchis'),light:document.querySelector('.t-deschis'),black:document.querySelector('.t-negru')};
     var vpm=document.querySelector('meta[name=viewport]'), vp0=vpm.getAttribute('content'), phone=(Math.min(screen.width,screen.height)<600 && window.matchMedia && matchMedia('(pointer:coarse)').matches);
     function set(t){ if(!b[t]) t='dark';
-      if(phone) vpm.setAttribute('content', t==='light' ? 'width=1440, viewport-fit=cover' : vp0);
+
       h.classList.toggle('light', t==='light'); h.classList.toggle('black', t==='black');
       for(var k in b){ b[k].setAttribute('aria-pressed', k===t); }
       if(window.sizeLines) window.sizeLines();
@@ -389,7 +390,7 @@
         else { if(L4.parentNode!==DS) DS.appendChild(L4); D4.style.transform=''; }
         if(document.documentElement.classList.contains('light')){
           m.style.setProperty('--up','0px'); m.style.transform=''; D4.style.transform=''; var tp0=document.querySelector('.top'); if(tp0) tp0.style.transform=''; var kc0=document.querySelector('.compass'); kc0.style.transform=''; kc0.style.transformOrigin=''; var sn0=document.querySelector('.soon'); if(sn0) sn0.style.transform='';
-          var dd=Math.min(window.innerHeight*1.15, window.innerWidth*0.71875), rs=document.documentElement.style; rs.setProperty('--persp',(dd*1.546)+'px'); rs.setProperty('--ty',(dd*0.01739)+'px');
+          var PHX=(Math.min(screen.width,screen.height)<600 && window.matchMedia && matchMedia('(pointer:coarse)').matches); document.documentElement.classList.toggle('ph',!!PHX); var dd=Math.min(window.innerHeight*1.15, window.innerWidth*0.71875); if(PHX&&window.__dph&&window.__dphW===window.innerWidth+'x'+window.innerHeight) dd=window.__dph; else { window.__dph=null; document.documentElement.style.removeProperty('--dph'); } var rs=document.documentElement.style; rs.setProperty('--persp',(dd*1.546)+'px'); rs.setProperty('--ty',(dd*0.01739)+'px');
           var D=document.querySelector('.dials'); D.style.transform=''; var l4=document.querySelector('.l4'); l4.style.transform='';
           var xs=['outer','ring2','ring3'].map(function(i){return document.getElementById(i).getBoundingClientRect()});
           var L=Math.min.apply(null,xs.map(function(r){return r.left})), R=Math.max.apply(null,xs.map(function(r){return r.right}));
@@ -420,8 +421,8 @@
           });
           var gl=ext.l, gr=ext.r, gb=ext.b, gt=Math.min(document.querySelector('h1').getBoundingClientRect().top, ext.t);
           var PH=(Math.min(screen.width,screen.height)<600 && window.matchMedia && matchMedia('(pointer:coarse)').matches), ZP=window.ZOOM_TEL||1.3, rr=screen.width/W;
-          var f=Math.min(0.94*W/(gr-gl), 0.84*H/(gb-gt)); if(PH) f=f*ZP; var gcy=(gt+gb)/2, dyc=H*0.47-gcy;
-          var st=PH?((38/rr)/70):1, ss=PH?((12.5/rr)/18):1;
+          var f=Math.min(0.94*W/(gr-gl), 0.84*H/(gb-gt)); if(PH){ if(window.__dph){ f=1; } else { f=f*ZP; window.__dph=dd*f; window.__dphW=window.innerWidth+'x'+window.innerHeight; document.documentElement.style.setProperty('--dph',window.__dph+'px'); return align(); } } var gcy=(gt+gb)/2, dyc=H*0.47-gcy;
+          var st=PH?((38/rr)/parseFloat(getComputedStyle(document.querySelector('h1')).fontSize)):1, ss=PH?((12.5/rr)/parseFloat(getComputedStyle(document.querySelector('.soon')).fontSize)):1;
           var P=dd*1.546;
           D.style.transformOrigin=(W/2)+'px '+gcy+'px'; D.style.transform='translateY('+dyc+'px) scale('+f+') perspective('+P+'px)';
           D4.style.transformOrigin=(W/2)+'px '+gcy+'px'; D4.style.transform='translateY('+dyc+'px) scale('+f+')';
