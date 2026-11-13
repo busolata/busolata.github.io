@@ -145,6 +145,10 @@
   html.light .l3{transform:translateY(var(--ty,2vh)) rotateZ(24deg) rotateX(74.5deg) scale(1.4)}
   html.light .l4{transform:none}
   html.light.ph .dial{width:var(--dph,71.875vw);height:var(--dph,71.875vw)}
+  html.light.ph .dial line{opacity:.8}
+  html.light.ph .dial circle[stroke-dasharray]{opacity:.85}
+  html.light.ph .dial circle[stroke]:not([stroke-dasharray]){opacity:.6}
+  html.light.ph #ring3b{stroke-dasharray:2.2 10;stroke-width:6px;opacity:.85}
   html.light.ph .pool{width:calc(var(--csz,138px)*1.7);height:calc(var(--csz,138px)*.38)}
   html.light .glow{opacity:0}
   html.light #ring4d{stroke:#6A4D1A;opacity:.9}
@@ -353,7 +357,8 @@
         for(var y=0;y<els.length;y++){
           var e=els[y];
           if(!e.dataset.sw){ e.dataset.sw=e.getAttribute('stroke-width')||'1'; if(e.getAttribute('stroke-dasharray')) e.dataset.da=e.getAttribute('stroke-dasharray'); }
-          e.setAttribute('stroke-width', parseFloat(e.dataset.sw)*f*(document.documentElement.classList.contains('light')?1.35*({outer:2.6,ring2:1.8,ring2d:1.8,ring3:1.5,ring3b:1.5,ring4:1.3,ring4d:1.3}[e.id]||1):(document.documentElement.classList.contains('black')?1.7:1)));
+          var phm=document.documentElement.classList.contains('ph')?((e.tagName==='line'||e.dataset.da)?2:1.4):1;
+          e.setAttribute('stroke-width', phm*parseFloat(e.dataset.sw)*f*(document.documentElement.classList.contains('light')?1.35*({outer:2.6,ring2:1.8,ring2d:1.8,ring3:1.5,ring3b:1.5,ring4:1.3,ring4d:1.3}[e.id]||1):(document.documentElement.classList.contains('black')?1.7:1)));
           if(e.dataset.da) e.setAttribute('stroke-dasharray', e.dataset.da.split(' ').map(function(v){return parseFloat(v)*f}).join(' '));
         }
       }
