@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Busola Ta — Direcția potrivită pentru tine</title>
+<meta name="description" content="Busola Ta. Direcția potrivită pentru tine. Pagina este în construcție.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{height:100%;background:#0C1828;overflow:hidden}
+  body{
+    position:fixed;inset:0;overflow:hidden;overscroll-behavior:none;
+    color:#F4EEE2;font-family:'Montserrat',sans-serif;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+  }
+  .bg{
+    position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 42%, #24395A 0%, #162741 42%, #0C1828 100%);
+  }
+  .dial{
+    position:absolute;width:min(115vh,115vw);height:min(115vh,115vw);
+    width:min(115dvh,115vw);height:min(115dvh,115vw);
+    left:50%;top:50%;transform:translate(-50%,-50%);
+    opacity:1;pointer-events:none;
+    animation:spin 240s linear infinite;
+  }
+  .dial2{animation:spinr 160s linear infinite;opacity:1}
+  .dial3{animation:spin 90s linear infinite;opacity:1}
+  @keyframes spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+  @keyframes spinr{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(-360deg)}}
+  @media (prefers-reduced-motion: reduce){.dial{animation:none}}
+  .glow{
+    position:absolute;width:60vmin;height:60vmin;left:50%;top:var(--cy,50%);
+    transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle, rgba(201,160,74,.10) 0%, rgba(201,160,74,0) 70%);
+    pointer-events:none;
+  }
+  main{position:absolute;left:0;right:0;top:var(--cy,50%);height:0;--cs:clamp(138px,16vw,184px);--gap:30px}
+  .top{position:absolute;left:0;right:0;bottom:calc(var(--cs) / 2 + var(--gap));padding:0 24px}
+  h1{
+    font-weight:600;letter-spacing:.14em;padding-left:.14em;
+    font-size:clamp(38px,6.6vw,70px);color:#CDC4B2;
+  }
+  .slogan{margin-top:0}
+  h1{line-height:1}
+  .compass{position:absolute;left:50%;top:0;width:var(--cs);height:auto;transform:translate(-50%,-50%);overflow:visible}
+  .compass .g1{stop-color:#7A5518}.compass .g2{stop-color:#FFF0B8}.compass .g3{stop-color:#D2A445}.compass .g4{stop-color:#6A4712}.compass .g5{stop-color:#E8C46A}.compass .g6{stop-color:#FFE59A}
+  .compass .face{fill:#1A2C47}
+  html.light .compass .face{fill:#7A5A40}
+  html.black .compass .face{fill:url(#faceBrown)}
+  .needle{transform-origin:60px 60px;animation:seek 17s ease-in-out infinite}
+  @keyframes seek{
+    0%{transform:rotate(0deg)}
+    9.5%{transform:rotate(65deg)}
+    17.2%{transform:rotate(-48deg)}
+    23.4%{transform:rotate(31deg)}
+    27.7%{transform:rotate(-19deg)}
+    33.4%{transform:rotate(10deg)}
+    38.2%{transform:rotate(-4.5deg)}
+    41%{transform:rotate(1.5deg)}
+    44%,49%{transform:rotate(0deg)}
+    58.5%{transform:rotate(-65deg)}
+    66.2%{transform:rotate(48deg)}
+    72.4%{transform:rotate(-31deg)}
+    76.7%{transform:rotate(19deg)}
+    82.4%{transform:rotate(-10deg)}
+    87.2%{transform:rotate(4.5deg)}
+    90%{transform:rotate(-1.5deg)}
+    93%,100%{transform:rotate(0deg)}
+  }
+  @media (prefers-reduced-motion: reduce){.needle{animation:none}}
+  .slogan{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;
+    font-size:clamp(24px,3.4vw,36px);color:#B08A47;line-height:1.4;
+  }
+  .soon{
+    position:absolute;left:0;right:0;top:calc(var(--cs) / 2 + var(--gap) * .5);padding:0 24px;font-size:17px;font-weight:500;letter-spacing:.06em;line-height:1.5;
+    color:#A3AFC2;
+  }
+  footer{
+    position:absolute;bottom:calc(26px + env(safe-area-inset-bottom));left:0;right:0;
+    font-size:11px;letter-spacing:.28em;color:#5E6E85;
+  }
+  @media (max-width:600px) and (orientation:portrait){
+    footer{bottom:calc(92px + env(safe-area-inset-bottom))}
+    body{--cy:calc(68px + 67.2vw)}
+    .dial{width:140vw;height:140vw}
+    .dial,.glow{top:var(--cy)}
+    main{--cs:138px;--gap:30px}
+  }
+  @media (max-height:500px){
+    main{--cs:110px;--gap:16px}
+    footer{bottom:calc(14px + env(safe-area-inset-bottom))}
+  }
+  /* ===== tema deschisă ===== */
+  .bg,.glow,h1,.slogan,.soon{transition:background .6s ease,color .6s ease,opacity .6s ease}
+  html.light{background:#DDD2BB}
+  html.light .bg{background:radial-gradient(ellipse at 50% 42%, #EDE4D1 0%, #E3D8C1 45%, #D2C4A8 100%)}
+  html.light .glow{background:radial-gradient(circle, rgba(201,160,74,.14) 0%, rgba(201,160,74,0) 70%)}
+  html.light h1{color:#4A3A2A}
+  html.light .slogan{color:#8A6A2E}
+  html.light .soon{color:#8A7A66}
+  html.light .dial [stroke="#E8D9B5"]{stroke:#7A6248}
+  html.light .dial [stroke="#C9A04A"]{stroke:#9A7630}
+  html.light .dial [stroke="#8D9AAE"]{stroke:#B59E7E}
+  html.light .dial [fill="#E8D9B5"]{fill:#7A6248}
+  html.light .dial [fill="#C9A04A"]{fill:#A8843A}
+  html.light .compass [fill="#0C1828"]{fill:#F4EEE2}
+  html.light .compass [stroke="#C9A04A"]{stroke:#7A5A22}
+  html.light .compass [fill="#C9A04A"]:not(path){fill:#7A5A22}
+  html.light .compass [fill="#B9C3D2"]{fill:#F4EEE2}
+  html.light .dial [fill="#8D9AAE"]{fill:#B59E7E}
+  html.light .dial [opacity^=".1"],html.light .dial [opacity^="0.1"]{opacity:.34}
+  html.light .dial [opacity^=".2"],html.light .dial [opacity^="0.2"]{opacity:.42}
+  html.light .dial [opacity^=".3"],html.light .dial [opacity^="0.3"]{opacity:.5}
+  html.light .dial [opacity^=".4"],html.light .dial [opacity^="0.4"]{opacity:.56}
+  html.light #outer,html.light #ring2{stroke:#6A4D1A}
+  .dials{position:fixed;inset:0;pointer-events:none;transform-style:preserve-3d}
+  .lay{position:absolute;inset:0;transform-style:preserve-3d}
+  html.black .dials{transform:translateY(1vh) perspective(1200px) rotateX(63deg) scale(.96)}
+  @media (max-width:600px) and (orientation:portrait){html.black .dials{transform:translateY(8vh) perspective(900px) rotateX(63deg) scale(.74)}}
+  .pool{display:none}
+  html.black .pool{display:block;position:fixed;left:50%;width:calc(var(--csz,170px)*2.6);height:calc(var(--csz,170px)*.55);transform:translate(-50%,-50%);pointer-events:none;border-radius:50%;
+    background:radial-gradient(ellipse closest-side at 50% 50%, rgba(246,224,150,.22) 0%, rgba(240,212,135,.16) 16%, rgba(232,196,106,.10) 32%, rgba(232,196,106,.055) 50%, rgba(232,196,106,.022) 68%, rgba(232,196,106,.006) 85%, rgba(232,196,106,0) 100%)}
+  .sun{display:none}
+  html.black .sun{display:block;position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse 26% 72% at 50% -4%, rgba(250,232,175,.11) 0%, rgba(246,224,150,.07) 22%, rgba(240,212,135,.035) 45%, rgba(232,196,106,.012) 65%, rgba(232,196,106,0) 85%)}
+  html.black .soon{top:calc(var(--cs) / 2 + 10px);text-transform:uppercase;letter-spacing:.12em;font-size:18px}
+  @media (max-width:600px){html.black .soon{font-size:12.5px}}
+  html.black{background:#0A0A0C}
+  html.black .bg{background:#0A0A0C}
+  html.black .glow{opacity:0}
+  html.black h1{color:#A39985}
+  html.black .slogan{color:#8B703F}
+  html.black .soon{color:#948B7C}
+  html.black .compass [fill="#0C1828"]{fill:#0A0A0C}
+  .teme .t-negru{background:#141518}
+  /* butoanele de culoare */
+  .teme{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(28px + env(safe-area-inset-bottom));display:flex;gap:22px;z-index:5}
+  .teme button{width:26px;height:26px;border-radius:50%;cursor:pointer;padding:0;
+    border:2px solid #B8913F;box-shadow:none;box-sizing:border-box}
+  @media (max-width:600px) and (orientation:portrait){ .teme{bottom:calc(92px + env(safe-area-inset-bottom));gap:26px} }
+  .teme .t-inchis{background:#162741}
+  .teme .t-deschis{background:#F4EEE2}
+  .teme button[aria-pressed="true"]{box-shadow:none}
+  .teme .t-turcoaz{background:#052C37}
+  @media (max-width:600px){html.black .pool{width:calc(var(--csz,138px)*1.7);height:calc(var(--csz,138px)*.38)}}
+</style>
+</head>
+<body>
+  <div class="teme" role="group" aria-label="Culoarea paginii">
+    <button class="t-turcoaz" aria-label="Turcoaz" aria-pressed="false"></button>
+    <button class="t-deschis" aria-label="Deschis" aria-pressed="false"></button>
+    <button class="t-negru" aria-label="Negru" aria-pressed="false"></button>
+    <button class="t-inchis" aria-label="Albastru" aria-pressed="true"></button>
+  </div>
+  <div class="bg"></div>
+  <div class="dials">
+  <div class="lay l1"><svg class="dial" viewBox="0 0 1000 1000" aria-hidden="true">
+    <g fill="none">
+      <circle id="outer" cx="500" cy="500" r="480" stroke="#C9A04A" stroke-width="2.0" opacity=".46"/>
+      <circle cx="500" cy="500" r="440" stroke="#8D9AAE" stroke-width="0.88" opacity=".22"/>
+    </g>
+    <g id="ticks" stroke="#C9A04A"></g>
+  </svg></div>
+<div class="lay l2"><svg class="dial dial2" viewBox="0 0 1000 1000" aria-hidden="true">
+    <g fill="none">
+      <circle id="ring2" cx="500" cy="500" r="390" stroke="#C9A04A" stroke-width="1.5" opacity=".34"/>
+      <circle id="ring2d" cx="500" cy="500" r="370" stroke="#E8D9B5" stroke-width="1.1" stroke-dasharray="2.5 12" opacity=".34"/>
+      <circle cx="500" cy="500" r="350" stroke="#8D9AAE" stroke-width="0.5" opacity=".16"/>
+    </g>
+    <g id="ticks2" stroke="#C9A04A"></g>
+  </svg></div>
+  <div class="lay l3"><svg class="dial" viewBox="0 0 1000 1000" aria-hidden="true">
+    <g fill="none">
+      <circle id="ring3" cx="500" cy="500" r="300" stroke="#E8D9B5" stroke-width="1.25" opacity=".26"/>
+      <circle id="ring3b" cx="500" cy="500" r="292" stroke="#C9A04A" stroke-width="0.5" opacity=".14"/>
+    </g>
+  </svg></div>
+<div class="lay l4"><svg class="dial dial3" viewBox="0 0 1000 1000" aria-hidden="true">
+    <g fill="none">
+      <circle id="ring4d" cx="500" cy="500" r="250" stroke="#C9A04A" stroke-width="1.6" stroke-dasharray="1.6 7" opacity=".40"/>
+      <circle id="ring4" cx="500" cy="500" r="232" stroke="#8D9AAE" stroke-width="0.62" opacity=".18"/>
+    </g>
+    <g id="dots"></g>
+    <circle id="ctr" cx="500" cy="500" r="0.5" fill="none"/>
+  </svg></div>
+  </div>
+  <div class="glow"></div>
+  <div class="pool"></div>
+  <div class="sun"></div>
+  <main>
+    <div class="top">
+      <h1>BUSOLA TA</h1>
+      <p class="slogan">Direcția potrivită pentru tine.</p>
+    </div>
+    <svg class="compass" viewBox="0 0 120 120" aria-hidden="true">
+      <defs>
+        <linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="14" y1="4" x2="106" y2="116">
+          <stop class="g1" offset="0"/><stop class="g2" offset=".18"/><stop class="g3" offset=".34"/><stop class="g6" offset=".47"/><stop class="g4" offset=".6"/><stop class="g2" offset=".78"/><stop class="g5" offset="1"/>
+        </linearGradient>
+        <linearGradient id="shine" gradientUnits="userSpaceOnUse" x1="10" y1="10" x2="110" y2="110">
+          <stop offset="0" stop-color="#FFFBEA" stop-opacity=".95"/><stop offset=".35" stop-color="#FFF4CC" stop-opacity=".55"/><stop offset=".55" stop-color="#FFF4CC" stop-opacity="0"/><stop offset=".85" stop-color="#FFF4CC" stop-opacity=".25"/><stop offset="1" stop-color="#FFF4CC" stop-opacity=".4"/>
+        </linearGradient>
+        <radialGradient id="shade" gradientUnits="userSpaceOnUse" cx="60" cy="60" r="58.6">
+          <stop offset=".935" stop-color="#2E1F06" stop-opacity=".55"/><stop offset=".955" stop-color="#2E1F06" stop-opacity="0"/><stop offset=".975" stop-color="#2E1F06" stop-opacity="0"/><stop offset="1" stop-color="#2E1F06" stop-opacity=".5"/>
+        </radialGradient>
+        <radialGradient id="faceBrown" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#2F1612"/><stop offset=".5" stop-color="#26110D"/><stop offset=".78" stop-color="#140705"/><stop offset="1" stop-color="#080302"/>
+        </radialGradient>
+        <radialGradient id="goldHub" cx=".38" cy=".32" r=".75">
+          <stop class="g2" offset="0"/><stop class="g3" offset=".55"/><stop class="g4" offset="1"/>
+        </radialGradient>
+      </defs>
+      <circle class="face" cx="60" cy="60" r="56"/>
+      <g fill="none">
+        <circle cx="60" cy="60" r="56" stroke="#2E1F06" stroke-width="3.8" stroke-opacity=".75"/>
+        <circle cx="60" cy="60" r="56" stroke="url(#gold)" stroke-width="3"/>
+        <circle cx="60" cy="60" r="56" stroke="url(#shade)" stroke-width="3"/>
+        <circle cx="59.55" cy="59.55" r="56" stroke="url(#shine)" stroke-width=".9"/>
+        <circle cx="60" cy="60" r="50" stroke="#2E1F06" stroke-width="1.7" stroke-opacity=".6"/>
+        <circle cx="60" cy="60" r="50" stroke="url(#gold)" stroke-width="1.2"/>
+        <circle cx="59.75" cy="59.75" r="50" stroke="url(#shine)" stroke-width=".4"/>
+        <circle cx="60" cy="60" r="30" stroke="url(#gold)" stroke-width="1.1" stroke-dasharray=".1 4" stroke-linecap="round"/>
+      </g>
+      <g id="cticks" stroke="url(#gold)" stroke-linecap="round"></g>
+      <g class="needle">
+        <path d="M60 14 L66.5 60 L53.5 60 Z" fill="#F2552C"/>
+        <path d="M60 106 L66.5 60 L53.5 60 Z" fill="#B9C3D2" opacity=".85"/>
+        <path d="M60 14 L60 60 L53.5 60 Z" fill="#E8D9B5" opacity=".35"/>
+      </g>
+      <circle cx="60" cy="60" r="4.6" fill="url(#goldHub)" stroke="url(#gold)" stroke-width=".8"/>
+      <circle cx="58.8" cy="58.8" r="1.1" fill="#FFF6DA" opacity=".8"/>
+    </svg>
+    <p class="soon">In curs de calibrare</p>
+  </main>
+<script>
+  (function(){
+    var ct=document.getElementById('cticks'), nsc='http://www.w3.org/2000/svg';
+    for(var t=0;t<72;t++){
+      var q=t*5*Math.PI/180, big=(t%18===0), md=(t%6===0);
+      var a1=50, a2=big?42:(md?45:47.5);
+      var ln=document.createElementNS(nsc,'line');
+      ln.setAttribute('x1',60+a1*Math.cos(q)); ln.setAttribute('y1',60+a1*Math.sin(q));
+      ln.setAttribute('x2',60+a2*Math.cos(q)); ln.setAttribute('y2',60+a2*Math.sin(q));
+      ln.setAttribute('stroke-width', big?1.6:(md?1:.6));
+      ct.appendChild(ln);
+    }
+    var g=document.getElementById('ticks'), ns='http://www.w3.org/2000/svg';
+    for(var i=0;i<120;i++){
+      var a=i*3*Math.PI/180, long=(i%10===0), mid=(i%5===0);
+      var r1=480, r2=long?448:(mid?458:466);
+      var l=document.createElementNS(ns,'line');
+      l.setAttribute('x1',500+r1*Math.cos(a)); l.setAttribute('y1',500+r1*Math.sin(a));
+      l.setAttribute('x2',500+r2*Math.cos(a)); l.setAttribute('y2',500+r2*Math.sin(a));
+      l.setAttribute('stroke-width', long?1.75:(mid?1.25:.75));
+      l.setAttribute('stroke', long?'#E8D9B5':(mid?'#C9A04A':'#8D9AAE'));
+      l.setAttribute('opacity', long?.5:(mid?.34:(.12+.1*Math.abs(Math.sin(i*0.7)))));
+      g.appendChild(l);
+    }
+    var g2=document.getElementById('ticks2');
+    for(var j=0;j<36;j++){
+      var b=j*10*Math.PI/180;
+      var l2=document.createElementNS(ns,'line');
+      l2.setAttribute('x1',500+390*Math.cos(b)); l2.setAttribute('y1',500+390*Math.sin(b));
+      l2.setAttribute('x2',500+(j%3===0?372:380)*Math.cos(b)); l2.setAttribute('y2',500+(j%3===0?372:380)*Math.sin(b));
+      l2.setAttribute('stroke-width', j%3===0?1.5:.75);
+      l2.setAttribute('stroke', j%3===0?'#C9A04A':'#8D9AAE');
+      l2.setAttribute('opacity', j%3===0?.42:.2);
+      g2.appendChild(l2);
+    }
+    var g3=document.getElementById('dots');
+    var cols=['#E8D9B5','#C9A04A','#8D9AAE'], ops=[.75,.5,.35,.55,.28,.6];
+    for(var k=0;k<12;k++){
+      var c=k*30*Math.PI/180;
+      var d=document.createElementNS(ns,'circle');
+      d.setAttribute('cx',500+241*Math.cos(c)); d.setAttribute('cy',500+241*Math.sin(c));
+      d.setAttribute('data-big', k%3===0?1:0);
+      d.setAttribute('fill', k%3===0?'#E8D9B5':cols[k%3]);
+      d.setAttribute('opacity', k%3===0?.55:ops[k%6]);
+      g3.appendChild(d);
+    }
+    function sizeDots(){
+      var px=document.querySelector('.dial3').getBoundingClientRect().width||1000;
+      var u=1000/px; // viewBox units per screen pixel
+      var ds=g3.querySelectorAll('circle');
+      for(var q=0;q<ds.length;q++){
+        var big=ds[q].getAttribute('data-big')==='1';
+        ds[q].setAttribute('r', Math.max(big?3.8:2.4, (big?2.6:2.1)*u));
+      }
+    }
+    sizeDots(); window.addEventListener('resize',sizeDots);
+    function sizeLines(){
+      var dials=document.querySelectorAll('.dial');
+      for(var x=0;x<dials.length;x++){
+        var px=dials[x].getBoundingClientRect().width||1000, u=1000/px, f=Math.max(1,u*0.85);
+        var els=dials[x].querySelectorAll('circle[stroke],line');
+        for(var y=0;y<els.length;y++){
+          var e=els[y];
+          if(!e.dataset.sw){ e.dataset.sw=e.getAttribute('stroke-width')||'1'; if(e.getAttribute('stroke-dasharray')) e.dataset.da=e.getAttribute('stroke-dasharray'); }
+          e.setAttribute('stroke-width', parseFloat(e.dataset.sw)*f*(document.documentElement.classList.contains('light')?({outer:2.6,ring2:1.8,ring2d:1.8,ring3:1.5,ring3b:1.5,ring4:1.3,ring4d:1.3}[e.id]||1):(document.documentElement.classList.contains('black')?1.7:1)));
+          if(e.dataset.da) e.setAttribute('stroke-dasharray', e.dataset.da.split(' ').map(function(v){return parseFloat(v)*f}).join(' '));
+        }
+      }
+    }
+    window.sizeLines=sizeLines; sizeLines(); window.addEventListener('resize',sizeLines);
+  })();
+  (function(){
+    function fit(){
+      var h=document.querySelector('h1'), sl=document.querySelector('.slogan');
+      if(!h||!sl) return;
+      var r=document.createRange(); r.selectNodeContents(h);
+      var hw=r.getBoundingClientRect().width - parseFloat(getComputedStyle(h).letterSpacing||0);
+      sl.style.fontSize='';
+      var cur=parseFloat(getComputedStyle(sl).fontSize);
+      var r2=document.createRange(); r2.selectNodeContents(sl);
+      var sw=r2.getBoundingClientRect().width;
+      if(sw>0){ sl.style.fontSize=Math.min(cur*hw/sw, 80)+'px'; sl.style.whiteSpace='nowrap'; }
+    }
+    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);} 
+    window.addEventListener('load',fit); window.addEventListener('resize',fit); fit();
+  })();
+</script>
+<script>
+  (function(){
+    var h=document.documentElement, b={dark:document.querySelector('.t-inchis'),light:document.querySelector('.t-deschis'),black:document.querySelector('.t-negru')};
+    function set(t){ if(!b[t]) t='dark';
+      h.classList.toggle('light', t==='light'); h.classList.toggle('black', t==='black');
+      for(var k in b){ b[k].setAttribute('aria-pressed', k===t); }
+      if(window.sizeLines) window.sizeLines();
+      try{localStorage.setItem('tema',t)}catch(e){} }
+    var t='black';
+    set(t);
+    b.dark.onclick=function(){location.href='index.html'}; b.light.onclick=function(){location.href='alb.html'}; b.black.onclick=function(){location.href='negru.html'}; var tq=document.querySelector('.t-turcoaz'); if(tq) tq.onclick=function(){location.href='turcoaz.html'};
+  })();
+</script>
+
+<script>
+  (function(){
+    var m=document.querySelector('main'), g=document.querySelector('.glow');
+    function align(){
+      if(document.documentElement.classList.contains('black')){
+        var c=document.getElementById('ring4').getBoundingClientRect(), y=c.top+c.height/2,
+            h=document.querySelector('.compass').getBoundingClientRect().height;
+        m.style.top=(y-h/2)+'px'; g.style.top=y+'px';
+        var pl=document.querySelector('.pool'); if(pl){pl.style.top=y+'px'; pl.style.setProperty('--csz',h+'px');}
+      } else { m.style.top=''; g.style.top=''; }
+    }
+    window.alignCenter=align;
+    window.addEventListener('resize',align); window.addEventListener('load',align); align();
+    document.querySelectorAll('.teme button').forEach(function(b){b.addEventListener('click',function(){setTimeout(align,50)})});
+  })();
+</script>
+</body>
+</html>
